@@ -46,6 +46,14 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .padding(24.dp)
                     ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            ButtonSketch()
+                            ButtonSketch()
+                        }
                         // Header text
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -116,7 +124,7 @@ class MainActivity : ComponentActivity() {
                         // Transactions
                         Row(
                             modifier = Modifier
-                                .padding(top = 24.dp)
+                                .padding(vertical = 24.dp)
                                 .fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
@@ -129,19 +137,36 @@ class MainActivity : ComponentActivity() {
                                     fontSize = 24.sp
                                 ),
                             )
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(percent = 100))
-                                    .width(64.dp)
-                                    .height(64.dp)
-                                    .background(Color.Black)
-                            ) { }
+                            ButtonSketch()
+                        }
+                        Column() {
+                            repeat(2) {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(vertical = 1.dp)
+                                        .clip(RoundedCornerShape(percent = 100))
+                                        .fillMaxWidth()
+                                        .height(64.dp)
+                                        .background(Color(16, 172, 98))
+                                )
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun ButtonSketch() {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(percent = 100))
+            .width(64.dp)
+            .height(64.dp)
+            .background(Color(16, 172, 98))
+    )
 }
 
 @Composable
