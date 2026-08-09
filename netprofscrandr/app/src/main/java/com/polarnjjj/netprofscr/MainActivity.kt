@@ -29,7 +29,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,7 +85,10 @@ class MainActivity : ComponentActivity() {
                             ),
                         )
                         // Diagrams
-                        Row(verticalAlignment = Alignment.Bottom) {
+                        Row(
+                            modifier = Modifier.padding(top = 24.dp),
+                            verticalAlignment = Alignment.Bottom
+                        ) {
                             DiagramColumn(
                                 modifier = Modifier.weight(1f),
                                 title = "Daily revenue",
@@ -110,6 +112,30 @@ class MainActivity : ComponentActivity() {
                                 symbol = "%",
                                 height = 60.dp,
                             )
+                        }
+                        // Transactions
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 24.dp)
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                modifier = Modifier.width(150.dp),
+                                text = "Completed Transactions",
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 24.sp
+                                ),
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(percent = 100))
+                                    .width(64.dp)
+                                    .height(64.dp)
+                                    .background(Color.Black)
+                            ) { }
                         }
                     }
                 }
@@ -150,7 +176,7 @@ fun DiagramColumn(
                 },
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    fontSize = 24.sp
                 ),
             )
         }
