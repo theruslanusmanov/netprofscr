@@ -21,20 +21,33 @@ struct ContentView: View {
                 .bold()
             Spacer()
             HStack(alignment: .bottom) {
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red: 14/255, green: 35/255, blue: 26/255))
-                    .frame(height: 240)
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red: 14/255, green: 35/255, blue: 26/255))
-                    .frame(height: 120)
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red: 14/255, green: 35/255, blue: 26/255))
-                    .frame(height: 60)
+                DiagramView(height: 240, title: "Daily revenue", amount: "37,100$")
+                DiagramView(height: 120, title: "Daily spend", amount: "12,205$")
+                DiagramView(height: 60, title: "Taxes", amount: "16.5%")
             }
+            Spacer()
         }
         .padding()
         .foregroundStyle(.black)
         .background(Color(red: 17/255, green: 241/255, blue: 134/255))
+    }
+}
+
+struct DiagramView: View {
+    let height: CGFloat
+    let title: String
+    let amount: String
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(title)
+            Text(amount)
+                .font(.title)
+                .bold()
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color(red: 14/255, green: 35/255, blue: 26/255))
+                .frame(height: height)
+        }
     }
 }
 
