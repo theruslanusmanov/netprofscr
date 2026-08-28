@@ -19,9 +19,11 @@ struct ContentView: View {
             Text("38,915$")
                 .font(.largeTitle)
                 .bold()
+            Spacer()
         }
         .padding()
-        Spacer()
+        .foregroundStyle(.black)
+        .background(.green)
     }
 }
 

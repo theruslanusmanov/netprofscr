@@ -13,6 +13,7 @@ struct netprofscrApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.dark)
+            
         }
     }
 }
