@@ -9,16 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Net profit")
+                    .font(.title)
+                Spacer()
+                Text("May 9")
+            }
+            Text("38,915$")
+                .font(.largeTitle)
+                .bold()
         }
         .padding()
+        Spacer()
     }
 }
 
 #Preview {
     ContentView()
+        .preferredColorScheme(.dark)
 }
