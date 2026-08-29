@@ -32,189 +32,24 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.polarnjjj.netprofscr.ui.HomeView
 import com.polarnjjj.netprofscr.ui.theme.NetprofscrTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             NetprofscrTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .padding(24.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            ButtonSketch()
-                            ButtonSketch()
-                        }
-                        // Header text
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Net profit",
-                                style = TextStyle(
-                                    fontWeight = FontWeight.Light,
-                                    fontSize = 48.sp
-                                ),
-                            )
-                            Text(
-                                text = "May 9",
-                                style = TextStyle(
-                                    fontWeight = FontWeight.Light,
-                                    fontSize = 18.sp
-                                ),
-                            )
-                        }
-                        Text(
-                            text = buildAnnotatedString {
-                                append("38,915$")
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontSize = 24.sp,
-                                        baselineShift = BaselineShift.Superscript
-                                    )
-                                ) {
-                                    append("$")
-                                }
-                            },
-                            style = TextStyle(
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 48.sp
-                            ),
-                        )
-                        // Diagrams
-                        Row(
-                            modifier = Modifier.padding(top = 24.dp),
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            DiagramColumn(
-                                modifier = Modifier.weight(1f),
-                                title = "Daily revenue",
-                                amount = "37,100",
-                                symbol = "$",
-                                height = 240.dp,
-                            )
-                            DiagramColumn(
-                                modifier = Modifier.weight(1f),
-                                alpha = 0.7f,
-                                title = "Daily spend",
-                                amount = "12,205",
-                                symbol = "$",
-                                height = 120.dp,
-                            )
-                            DiagramColumn(
-                                modifier = Modifier.weight(1f),
-                                alpha = 0.3f,
-                                title = "Taxes",
-                                amount = "16.5",
-                                symbol = "%",
-                                height = 60.dp,
-                            )
-                        }
-                        // Transactions
-                        Row(
-                            modifier = Modifier
-                                .padding(vertical = 24.dp)
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                modifier = Modifier.width(150.dp),
-                                text = "Completed Transactions",
-                                style = TextStyle(
-                                    fontWeight = FontWeight.Medium,
-                                    fontSize = 24.sp
-                                ),
-                            )
-                            ButtonSketch()
-                        }
-                        Column() {
-                            repeat(2) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(vertical = 1.dp)
-                                        .clip(RoundedCornerShape(percent = 100))
-                                        .fillMaxWidth()
-                                        .height(64.dp)
-                                        .background(Color(16, 172, 98))
-                                )
-                            }
-                        }
-                    }
+                    HomeView(innerPadding)
                 }
             }
         }
     }
 }
 
-@Composable
-fun ButtonSketch() {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(percent = 100))
-            .width(64.dp)
-            .height(64.dp)
-            .background(Color(16, 172, 98))
-    )
-}
-
-@Composable
-fun DiagramColumn(
-    modifier: Modifier,
-    alpha: Float = 1f,
-    title: String,
-    amount: String,
-    symbol: String,
-    height: Dp,
-) {
-    Column(modifier = modifier.padding(1.dp)) {
-        Column(modifier = Modifier.padding(8.dp)) {
-            Text(
-                text = title,
-                style = TextStyle(
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 14.sp
-                ),
-            )
-            Text(
-                text = buildAnnotatedString {
-                    append(amount)
-                    withStyle(
-                        style = SpanStyle(
-                            fontSize = 12.sp,
-                            baselineShift = BaselineShift.Superscript
-                        )
-                    ) {
-                        append(symbol)
-                    }
-                },
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp
-                ),
-            )
-        }
-        Box(
-            modifier = Modifier
-                .alpha(alpha)
-                .clip(RoundedCornerShape(24.dp))
-                .background(Color(14, 35, 26))
-                .fillMaxWidth()
-                .height(height)
-        )
-    }
-}
 
 //@Preview(showBackground = true)
 //@Composable
