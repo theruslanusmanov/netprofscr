@@ -1,6 +1,9 @@
 package com.polarnjjj.netprofscr.ui
 
+import android.R.attr.fontWeight
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,9 +37,21 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun HomeView(innerPadding: PaddingValues) {
+    var targetValue by remember { mutableStateOf(0) }
+
+    val animatedValue by animateIntAsState(
+        targetValue = targetValue,
+        animationSpec = tween(durationMillis = 500) // 2 seconds duration
+    )
+
+    LaunchedEffect(Unit) {
+        targetValue = 38915
+    }
 
     Column(
         modifier = Modifier
@@ -43,7 +59,9 @@ fun HomeView(innerPadding: PaddingValues) {
             .padding(24.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -71,9 +89,11 @@ fun HomeView(innerPadding: PaddingValues) {
                 ),
             )
         }
+        val numberFormatter = remember { NumberFormat.getNumberInstance(Locale.getDefault()) }
+        val formattedText = numberFormatter.format(animatedValue)
         Text(
             text = buildAnnotatedString {
-                append("38,915$")
+                append("$formattedText")
                 withStyle(
                     style = SpanStyle(
                         fontSize = 24.sp,
@@ -96,7 +116,7 @@ fun HomeView(innerPadding: PaddingValues) {
             DiagramColumn(
                 modifier = Modifier.weight(1f),
                 title = "Daily revenue",
-                amount = "37,100",
+                amount = 37100,
                 symbol = "$",
                 height = 240.dp,
             )
@@ -104,7 +124,7 @@ fun HomeView(innerPadding: PaddingValues) {
                 modifier = Modifier.weight(1f),
                 alpha = 0.7f,
                 title = "Daily spend",
-                amount = "12,205",
+                amount = 12205,
                 symbol = "$",
                 height = 120.dp,
             )
@@ -112,7 +132,7 @@ fun HomeView(innerPadding: PaddingValues) {
                 modifier = Modifier.weight(1f),
                 alpha = 0.3f,
                 title = "Taxes",
-                amount = "16.5",
+                amount = 17,
                 symbol = "%",
                 height = 60.dp,
             )
@@ -167,7 +187,7 @@ fun DiagramColumn(
     modifier: Modifier,
     alpha: Float = 1f,
     title: String,
-    amount: String,
+    amount: Int,
     symbol: String,
     height: Dp,
 ) {
@@ -176,7 +196,21 @@ fun DiagramColumn(
     LaunchedEffect(Unit) {
         expanded = true
     }
-    Column(modifier = modifier.padding(1.dp).height(height + 50.dp), verticalArrangement = Arrangement.Bottom) {
+
+    var targetValue by remember { mutableIntStateOf(0) }
+
+    val animatedValue by animateIntAsState(
+        targetValue = targetValue,
+        animationSpec = tween(durationMillis = 500) // 2 seconds duration
+    )
+
+    LaunchedEffect(Unit) {
+        targetValue = amount
+    }
+
+    Column(modifier = modifier
+        .padding(1.dp)
+        .height(height + 50.dp), verticalArrangement = Arrangement.Bottom) {
         Column(modifier = Modifier.padding(8.dp)) {
             Text(
                 text = title,
@@ -185,9 +219,11 @@ fun DiagramColumn(
                     fontSize = 14.sp
                 ),
             )
+            val numberFormatter = remember { NumberFormat.getNumberInstance(Locale.getDefault()) }
+            val formattedText = numberFormatter.format(animatedValue)
             Text(
                 text = buildAnnotatedString {
-                    append(amount)
+                    append("$formattedText")
                     withStyle(
                         style = SpanStyle(
                             fontSize = 12.sp,
