@@ -46,7 +46,7 @@ fun HomeView(innerPadding: PaddingValues) {
 
     val animatedValue by animateIntAsState(
         targetValue = targetValue,
-        animationSpec = tween(durationMillis = 500) // 2 seconds duration
+        animationSpec = tween(durationMillis = 1000) // 2 seconds duration
     )
 
     LaunchedEffect(Unit) {
@@ -201,7 +201,7 @@ fun DiagramColumn(
 
     val animatedValue by animateIntAsState(
         targetValue = targetValue,
-        animationSpec = tween(durationMillis = 500) // 2 seconds duration
+        animationSpec = tween(durationMillis = 1000) // 2 seconds duration
     )
 
     LaunchedEffect(Unit) {
