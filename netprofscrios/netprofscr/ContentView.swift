@@ -21,9 +21,9 @@ struct ContentView: View {
                 .bold()
             Spacer()
             HStack(alignment: .bottom) {
-                DiagramView(height: 240, title: "Daily revenue", amount: "37,100$")
-                DiagramView(height: 120, title: "Daily spend", amount: "12,205$")
-                DiagramView(height: 60, title: "Taxes", amount: "16.5%")
+                DiagramView(height: 240, title: "Daily revenue", amount: 37100.0)
+                DiagramView(height: 120, title: "Daily spend", amount: 12205.0)
+                DiagramView(height: 60, title: "Taxes", amount: 17.0)
             }
             Spacer()
         }
@@ -36,18 +36,33 @@ struct ContentView: View {
 struct DiagramView: View {
     let height: CGFloat
     let title: String
-    let amount: String
+    let amount: Double
+    
+    @State private var value = 0.0
+    @State private var isEntered = false
     
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-            Text(amount)
+            Text(value, format: .number)
                 .font(.title)
                 .bold()
+                .contentTransition(.numericText(value: Double(value)))
+                .onAppear {
+                    withAnimation(.default) {
+                        value = amount
+                    }
+                }
+            Spacer()
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(red: 14/255, green: 35/255, blue: 26/255))
-                .frame(height: height)
+                .frame(height: isEntered ? height : 0, alignment: .bottom)
+                .animation(.default, value: isEntered)
+                .onAppear {
+                    isEntered = true
+                }
         }
+        .frame(maxHeight: height)
     }
 }
 
