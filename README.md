@@ -1,6 +1,6 @@
 # netprofscr
 
-![preview](./preview.gif)
+![preview](https://raw.githubusercontent.com/theruslanusmanov/netprofscr/blob/main/preview.gif)
 
 ## Platforms
 
